@@ -1,56 +1,34 @@
-import {
-  Link as ChakraLink,
-  Text,
-  Code,
-  List,
-  ListIcon,
-  ListItem,
-} from '@chakra-ui/react'
-import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
+import { usePokemonsQuery } from '../graphql/generated/graphql'
+import { Box, Flex, Grid, Img, Text } from '@chakra-ui/react'
+import Link from 'next/link'
 
-import { Hero } from '../components/Hero'
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { DarkModeSwitch } from '../components/DarkModeSwitch'
-import { CTA } from '../components/CTA'
-import { Footer } from '../components/Footer'
+const Index = () => {
+  const { data, loading } = usePokemonsQuery({
+    variables: {
+      first: 151,
+    },
+  })
 
-const Index = () => (
-  <Container height="100vh">
-    <Hero />
-    <Main>
-      <Text color="text">
-        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
-        <Code>TypeScript</Code>.
-      </Text>
+  if (loading) {
+    return <>読み込み中</>
+  }
 
-      <List spacing={3} my={0} color="text">
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink
-            isExternal
-            href="https://chakra-ui.com"
-            flexGrow={1}
-            mr={2}
-          >
-            Chakra UI <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-            Next.js <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-      </List>
-    </Main>
-
-    <DarkModeSwitch />
-    <Footer>
-      <Text>Next ❤️ Chakra</Text>
-    </Footer>
-    <CTA />
-  </Container>
-)
+  return (
+    <>
+      <Flex flexWrap="wrap" gap="16px" justifyContent="space-evenly">
+        {data.pokemons.map((pokemon) => {
+          return (
+            <Link href={`/pokemons/${pokemon.id}`} key={pokemon.id}>
+              <Box width={'20%'}>
+                <Img src={pokemon.image} />
+                <Text as={'h4'}>{pokemon.name}</Text>
+              </Box>
+            </Link>
+          )
+        })}
+      </Flex>
+    </>
+  )
+}
 
 export default Index
