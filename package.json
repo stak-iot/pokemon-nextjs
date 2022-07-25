@@ -4,7 +4,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "prettier": "prettier --write './src/**/*.{ts,tsx}'"
+    "prettier": "prettier --write './src/**/*.{ts,tsx}'",
+    "generate": "graphql-codegen"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.2",
@@ -12,8 +13,14 @@
     "@chakra-ui/theme-tools": "^2.0.2",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.9.0",
+    "@graphql-codegen/cli": "^2.9.1",
+    "@graphql-codegen/introspection": "^2.2.0",
+    "@graphql-codegen/typescript": "^2.7.2",
+    "@graphql-codegen/typescript-operations": "^2.5.2",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.2",
     "@types/prettier": "^2.6.3",
     "framer-motion": "^6.3.0",
+    "graphql": "^16.5.0",
     "next": "latest",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
